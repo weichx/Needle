@@ -1,9 +1,12 @@
 const gulp = require('gulp');
 const jasmine = require('gulp-jasmine');
+const shell = require('gulp-shell');
 
-gulp.task('default', function () {
-    gulp.src('build/test.js').pipe(jasmine({
+gulp.task('default', ['compile'], function () {
+    gulp.src('built/spec/test.js').pipe(jasmine({
         includeStackTrace: true,
         verbose: true
     }));
 });
+
+gulp.task('compile', shell.task('tsc'));
