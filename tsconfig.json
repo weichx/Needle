@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "target": "es5",
+    "noImplicitAny": true,
+    "outDir": "built",
+    "rootDir": ".",
+    "sourceMap": false
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
