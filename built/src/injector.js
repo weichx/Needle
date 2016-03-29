@@ -1,4 +1,3 @@
-"use strict";
 var provider_1 = require("./provider");
 function noSuchProvider(name) {
     throw new Error("Unable to locate provider '" + name + "'. Make sure you register this provide before attempting to use it");
@@ -237,7 +236,7 @@ var Needle = (function () {
         Needle.call(this);
     };
     return Needle;
-}());
+})();
 exports.Needle = Needle;
 exports.Injector = new Needle();
 function inject(injectionKey) {

@@ -1,7 +1,7 @@
 import Provider from "./provider";
 import {Indexable, Creator, IndexableObject}  from "./interfaces";
 
-type ImplementationFn = (...args : any[]) => any;
+export type ImplementationFn = (...args : any[]) => any;
 
 function noSuchProvider(name : string) : void {
     throw new Error(`Unable to locate provider '${name}'. Make sure you register this provide before attempting to use it`);

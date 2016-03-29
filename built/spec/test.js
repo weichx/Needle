@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -63,7 +62,7 @@ describe('Injector', function () {
                     injector_1.inject('test_thing2')
                 ], TestThing.prototype, "str2", void 0);
                 return TestThing;
-            }());
+            })();
             injector_1.Injector.provide('test_thing1', 'oh hi 1');
             injector_1.Injector.provide('test_thing2', 'oh hi 2');
             injector_1.Injector.create(TestThing).then(function (thing) {
@@ -85,7 +84,7 @@ describe('Injector', function () {
                     injector_1.inject('test_thing2')
                 ], TestThing.prototype, "str2", void 0);
                 return TestThing;
-            }());
+            })();
             injector_1.Injector.provide('test_thing1', 'oh hi');
             injector_1.Injector.provide('test_thing2', 'real');
             injector_1.Injector.mock('test_thing2', 'mock', 'mocked');
@@ -107,7 +106,7 @@ describe('Injector', function () {
                     injector_1.inject('test_thing2')
                 ], TestThing.prototype, "str2", void 0);
                 return TestThing;
-            }());
+            })();
             injector_1.Injector.create(TestThing).then(function (thing) {
                 expect(thing.str1).toBe('str1');
                 expect(thing.str2).toBe('str2');
@@ -129,7 +128,7 @@ describe('Injector', function () {
                     injector_1.inject('test_thing2')
                 ], TestThing.prototype, "str2", void 0);
                 return TestThing;
-            }());
+            })();
             injector_1.Injector.create(TestThing, {
                 str1: 'totally mocked out dude'
             }).then(function (instance) {
@@ -155,7 +154,7 @@ describe('Injector', function () {
                     injector_1.inject('test_thing2')
                 ], TestThing.prototype, "str2", void 0);
                 return TestThing;
-            }());
+            })();
             var instance = new TestThing();
             injector_1.Injector.injectDependencies(instance).then(function (inst) {
                 expect(inst).toBe(instance);
@@ -177,7 +176,7 @@ describe('Injector', function () {
                     injector_1.inject('test_thing2')
                 ], TestThing.prototype, "str2", void 0);
                 return TestThing;
-            }());
+            })();
             var instance = new TestThing();
             injector_1.Injector.injectDependencies(instance).then(function (inst) {
                 expect(inst).toBe(instance);
@@ -200,7 +199,7 @@ describe('Injector', function () {
                     injector_1.inject('test_thing2')
                 ], TestThing.prototype, "str2", void 0);
                 return TestThing;
-            }());
+            })();
             var instance = new TestThing();
             injector_1.Injector.injectDependencies(instance, {
                 str1: 'totally mocked out dude'
@@ -223,7 +222,7 @@ describe('Injector', function () {
                     injector_1.inject('test_thing2')
                 ], TestThing.prototype, "str2", void 0);
                 return TestThing;
-            }());
+            })();
             var instance = new TestThing();
             injector_1.Injector.injectDependencies(instance).then(function (thing) {
                 expect(thing.str1).toBe('str1');
