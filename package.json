@@ -1,6 +1,6 @@
 {
   "name": "Needle",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Typescript Dependency Injection",
   "main": "build/bundle.js",
   "repository": "https://github.com/weichx/Needle",
