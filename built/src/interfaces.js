@@ -1,3 +1,4 @@
+"use strict";
 // export interface Creator0<T> { new() : T }
 // export interface Creator1<T, U> { new(u : U) : T }
 // export interface Creator2<T, U, V> { new(u : U, v : V) : T }

@@ -1,3 +1,4 @@
+"use strict";
 function noSuchMock(providerName, mockName) {
     throw new Error("No mock named '" + mockName + "' exists for provider '" + providerName + "'");
 }
@@ -19,7 +20,7 @@ var ProviderVariant = (function () {
         configurable: true
     });
     return ProviderVariant;
-})();
+}());
 var Provider = (function () {
     function Provider(name, dependencies) {
         if (dependencies === void 0) { dependencies = []; }
@@ -78,7 +79,7 @@ var Provider = (function () {
         this.mocks[key] = new ProviderVariant(key, dependencies, implementation);
     };
     return Provider;
-})();
+}());
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.default = Provider;
 //# sourceMappingURL=provider.js.map
