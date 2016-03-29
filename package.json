@@ -1,8 +1,8 @@
 {
-  "name": "Needle",
+  "name": "needles",
   "version": "1.0.1",
   "description": "Typescript Dependency Injection",
-  "main": "build/bundle.js",
+  "main": "built/bundle.js",
   "repository": "https://github.com/weichx/Needle",
   "scripts": {
     "test": "gulp"
