@@ -15,6 +15,7 @@ export declare class Needle {
     get(providerName: string, variantName?: string): any;
     create<T>(type: Creator<T>, options?: IndexableObject): Promise<T>;
     injectDependencies<T>(instance: T, options?: IndexableObject): Promise<T>;
+    getInjectedDependencies(type: Function, overrides?: IndexableObject): Promise<IndexableObject>;
     private checkCycles(providerName, stack?);
     private define(providerName, dependencies?);
     private onDefined(providerName, callback);
@@ -22,7 +23,6 @@ export declare class Needle {
     private resolve(provider, impl);
     private onResolved(providerName, callback);
     private onAllResolved(dependencies, callback);
-    private getInjectedDependencies(type, overrides?);
     private getInjectionMap(type);
     reset(): void;
 }

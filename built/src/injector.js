@@ -114,6 +114,34 @@ var Needle = (function () {
         }
         return this.getInjectedDependencies(instance.constructor, options).then(injectDependencies);
     };
+    Needle.prototype.getInjectedDependencies = function (type, overrides) {
+        var _this = this;
+        if (overrides === void 0) { overrides = {}; }
+        return new Promise(function (resolve) {
+            var propertyLookup = _this.injectionMapRegistry.get(type) || {};
+            var propertyNames = Object.keys(propertyLookup);
+            var providerNames = [];
+            for (var i = 0; i < propertyNames.length; i++) {
+                providerNames[i] = propertyLookup[propertyNames[i]];
+            }
+            var awaitedProviderNames = propertyNames.filter(function (name) {
+                return overrides[name] === void 0;
+            }).map(function (name) {
+                return propertyLookup[name];
+            });
+            _this.onAllDefined(awaitedProviderNames, function () {
+                _this.onAllResolved(awaitedProviderNames, function () {
+                    var injectedDependencies = {};
+                    for (var i = 0; i < propertyNames.length; i++) {
+                        var providerName = providerNames[i];
+                        var propertyName = propertyNames[i];
+                        injectedDependencies[propertyName] = overrides[propertyName] || _this.get(providerName);
+                    }
+                    resolve(injectedDependencies);
+                });
+            });
+        });
+    };
     Needle.prototype.checkCycles = function (providerName, stack) {
         if (stack === void 0) { stack = []; }
         var provider = this.providerMap[providerName];
@@ -192,34 +220,6 @@ var Needle = (function () {
         for (var i = 0; i < dependencies.length; i++) {
             this.onResolved(dependencies[i], onProviderResolved);
         }
-    };
-    Needle.prototype.getInjectedDependencies = function (type, overrides) {
-        var _this = this;
-        if (overrides === void 0) { overrides = {}; }
-        return new Promise(function (resolve) {
-            var propertyLookup = _this.injectionMapRegistry.get(type) || {};
-            var propertyNames = Object.keys(propertyLookup);
-            var providerNames = [];
-            for (var i = 0; i < propertyNames.length; i++) {
-                providerNames[i] = propertyLookup[propertyNames[i]];
-            }
-            var awaitedProviderNames = propertyNames.filter(function (name) {
-                return overrides[name] === void 0;
-            }).map(function (name) {
-                return propertyLookup[name];
-            });
-            _this.onAllDefined(awaitedProviderNames, function () {
-                _this.onAllResolved(awaitedProviderNames, function () {
-                    var injectedDependencies = {};
-                    for (var i = 0; i < propertyNames.length; i++) {
-                        var providerName = providerNames[i];
-                        var propertyName = propertyNames[i];
-                        injectedDependencies[propertyName] = overrides[propertyName] || _this.get(providerName);
-                    }
-                    resolve(injectedDependencies);
-                });
-            });
-        });
     };
     Needle.prototype.getInjectionMap = function (type) {
         if (!type)

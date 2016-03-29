@@ -140,6 +140,37 @@ export class Needle {
         return this.getInjectedDependencies(instance.constructor, options).then(injectDependencies);
     }
 
+    public getInjectedDependencies(type : Function, overrides : IndexableObject = {}) : Promise<IndexableObject> {
+
+        return new Promise((resolve : any) => {
+            var propertyLookup : IndexableObject = this.injectionMapRegistry.get(type) || {};
+            var propertyNames = Object.keys(propertyLookup);
+            var providerNames : Array<string> = [];
+
+            for (var i = 0; i < propertyNames.length; i++) {
+                providerNames[i] = propertyLookup[propertyNames[i]];
+            }
+
+            var awaitedProviderNames = propertyNames.filter(function (name : string) {
+                return overrides[name] === void 0;
+            }).map(function (name : string) {
+                return propertyLookup[name];
+            });
+
+            this.onAllDefined(awaitedProviderNames, () => {
+                this.onAllResolved(awaitedProviderNames, () => {
+                    var injectedDependencies : IndexableObject = {};
+                    for (var i = 0; i < propertyNames.length; i++) {
+                        var providerName = providerNames[i];
+                        var propertyName = propertyNames[i];
+                        injectedDependencies[propertyName] = overrides[propertyName] || this.get(providerName);
+                    }
+                    resolve(injectedDependencies);
+                });
+            });
+        });
+    }
+    
     private checkCycles(providerName : string, stack : Array<string> = []) : void {
         var provider = this.providerMap[providerName];
         if (stack.indexOf(providerName) !== -1) {
@@ -223,37 +254,6 @@ export class Needle {
         for (var i = 0; i < dependencies.length; i++) {
             this.onResolved(dependencies[i], onProviderResolved);
         }
-    }
-
-    private getInjectedDependencies(type : Function, overrides : IndexableObject = {}) : Promise<IndexableObject> {
-
-        return new Promise((resolve : any) => {
-            var propertyLookup : IndexableObject = this.injectionMapRegistry.get(type) || {};
-            var propertyNames = Object.keys(propertyLookup);
-            var providerNames : Array<string> = [];
-
-            for (var i = 0; i < propertyNames.length; i++) {
-                providerNames[i] = propertyLookup[propertyNames[i]];
-            }
-
-            var awaitedProviderNames = propertyNames.filter(function (name : string) {
-                return overrides[name] === void 0;
-            }).map(function (name : string) {
-                return propertyLookup[name];
-            });
-
-            this.onAllDefined(awaitedProviderNames, () => {
-                this.onAllResolved(awaitedProviderNames, () => {
-                    var injectedDependencies : IndexableObject = {};
-                    for (var i = 0; i < propertyNames.length; i++) {
-                        var providerName = providerNames[i];
-                        var propertyName = propertyNames[i];
-                        injectedDependencies[propertyName] = overrides[propertyName] || this.get(providerName);
-                    }
-                    resolve(injectedDependencies);
-                });
-            });
-        });
     }
 
     private getInjectionMap(type : Function) : IndexableObject {
