@@ -89,9 +89,9 @@ export class Needle {
         this.providerMap[providerName] = provider;
     }
 
-    // public mockAsync(providerName : string, mockName : string, dependencies : Array<string>, impl : any) : void {
-    //
-    // }
+    public mockAsync(providerName : string, mockName : string, dependencies : Array<string>, impl : any) : void {
+    
+    }
 
     public useMock(providerName : string, mockName : string) : void {
         var provider = this.providerMap[providerName];
@@ -277,3 +277,4 @@ export var Injector = new Needle();
 export function inject(injectionKey : string) : PropertyDecorator {
     return Injector.inject(injectionKey);
 }
+

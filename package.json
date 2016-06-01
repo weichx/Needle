@@ -3,6 +3,7 @@
   "version": "1.0.7",
   "description": "Typescript Dependency Injection",
   "main": "built/src/injector.js",
+  "typings": "built/src/injector.d.ts",
   "repository": "https://github.com/weichx/Needle",
   "scripts": {
     "test": "gulp"
